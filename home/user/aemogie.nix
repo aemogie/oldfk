@@ -36,6 +36,7 @@
       ../apps/aseprite.nix
       ../apps/spicetify
       ../apps/foot.nix
+      # ../apps/warp
       # ../apps/wezterm
       # ../apps/ue4.nix
     ]
