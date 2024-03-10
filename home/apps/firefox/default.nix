@@ -22,8 +22,9 @@
     ;
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox-bin;
+    /*
     package = pkgs.firefox.override {
-      /*
       extraPrefs =
         #js github:MrOtherGuy/fx-autoconfig
         ''
@@ -38,9 +39,10 @@
             }
           } catch(ex) {};
         '';
-      */
     };
+    */
     profiles.old.id = 0;
+    profiles.new.id = 2;
     profiles.default = {
       id = 1;
       settings = let

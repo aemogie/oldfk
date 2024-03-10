@@ -35,6 +35,7 @@
   nixConfig = {
     # sandbox = false;
     builders-use-substitutes = true;
+    keep-going = true;
     extra-substituters = [
       "https://helix.cachix.org"
       "https://hyprland.cachix.org"

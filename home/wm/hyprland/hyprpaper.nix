@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  wallpaper = ../../../assets/home.png;
+  wallpaper = ../../../assets/cats.png;
   command = lib.getExe pkgs.hyprpaper;
 in {
   wayland.windowManager.hyprland.settings.exec-once = [command];

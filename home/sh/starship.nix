@@ -4,13 +4,13 @@
     enableNushellIntegration = true;
     settings =
       {
-        add_newline = false;
+        # add_newline = false;
         palette = "catppuccin_mocha";
-        format = "$fill$line_break$all$line_break$character";
-        fill = {
-          style = "surface2";
-          symbol = "─";
-        };
+        # format = "$fill$line_break$all$line_break$character";
+        # fill = {
+        #   style = "surface2";
+        #   symbol = "─";
+        # };
       }
       // fromTOML (builtins.readFile "${pkgs.fetchFromGitHub {
         owner = "catppuccin";

@@ -2,6 +2,7 @@
   config,
   options,
   lib,
+  pkgs,
   ...
 }: let
   build-user = name: path: {lib, ...}: {
@@ -20,7 +21,6 @@
         config = {
           nixpkgs.config.allowUnfree = true;
 
-          xdg.enable = true;
           home = {
             username = name;
             homeDirectory = "/home/${name}";
@@ -52,9 +52,22 @@ in {
       default = [];
     };
   config.home-manager.sharedModules = config.hm;
-  config.hm.programs = {
-    bash.enable = true; # for the env vars
-    git.enable = true;
+  config.hm = {
+    programs = {
+      bash.enable = true; # for the env vars
+      git.enable = true;
+    };
+    xdg = {
+      enable = true;
+      userDirs = {
+        enable = true;
+        createDirectories = true;
+      };
+    };
+    home.packages = [
+      pkgs.xdg-utils
+      pkgs.xdg-user-dirs
+    ];
   };
 
   # config.home-manager.useUserPackages = true;

@@ -44,7 +44,10 @@
 
       exec-once = ["${pkgs.hyprland}/bin/hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"];
 
-      input.touchpad.natural_scroll = true;
+      input = {
+        numlock_by_default = true;
+        touchpad.natural_scroll = true;
+      };
       gestures.workspace_swipe = true;
 
       general = let
@@ -78,7 +81,7 @@
           ignore_opacity = true;
           popups = true;
           popups_ignorealpha = 0;
-          # xray = true;
+          xray = true;
           special = true;
         };
 

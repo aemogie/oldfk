@@ -16,7 +16,7 @@
     settings = {
       editor = {
         auto-save = false; # just got annoying
-        bufferline = "multiple";
+        # bufferline = "multiple";
         completion-replace = true;
         completion-trigger-len = 0;
         cursor-shape = {

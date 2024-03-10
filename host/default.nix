@@ -14,6 +14,7 @@
     ./sudo.nix
     ./vaapi.nix
     ./logind.nix
+    ./keyd.nix
   ];
 
   nix = {
@@ -22,6 +23,7 @@
       trusted-users = ["root" "@wheel"];
       # hard link duplicates automatically
       auto-optimise-store = true;
+      keep-going = true;
       # sandbox = false;
     };
     # TODO: runs way too often, slow it down
