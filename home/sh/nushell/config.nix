@@ -133,9 +133,10 @@
       ''
     )
     + (let
-      inherit (builtins) mapAttrs toJSON attrValues attrNames replaceStrings;
+      inherit (builtins) mapAttrs toJSON attrValues attrNames replaceStrings isAttrs filter;
       previewStr = "preview";
-      buildColour = hex: name: colour @ {
+      buildColour = hex: colour @ {
+        name,
         r,
         g,
         b,
@@ -155,9 +156,13 @@
           else {inherit r g b;}
         );
       toJsonNoEscape = x: replaceStrings ["\\\\"] ["\\"] (toJSON x);
-      pal = config.paint.core;
-      palRgb = toJsonNoEscape (attrValues (mapAttrs (buildColour false) pal));
-      palHex = toJsonNoEscape (attrValues (mapAttrs (buildColour true) pal));
+      pal = filter (v: v != null) (attrValues (mapAttrs (name: v:
+        if isAttrs v
+        then v // {inherit name;}
+        else null)
+      config.paint.core));
+      palRgb = toJsonNoEscape (map (buildColour false) pal);
+      palHex = toJsonNoEscape (map (buildColour true) pal);
     in
       #nu
       ''
@@ -177,7 +182,7 @@
           } else {
             let col = if ($colour == null) {
               $pal | input list -f
-            } else if ($colour in ${toJSON (attrNames pal)}) {
+            } else if ($colour in ${toJSON (map (v: v.name) pal)}) {
               $pal | where name == $colour | first
             } else {
               let span = (metadata $colour).span;

@@ -1,9 +1,13 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
-  wallpaper = ../../../assets/cats.png;
+  wallpaper =
+    if config.paint.core._dark
+    then ../../../assets/catppuccino-dark.png
+    else ../../../assets/catppuccino-pink.png;
   command = lib.getExe pkgs.hyprpaper;
 in {
   wayland.windowManager.hyprland.settings.exec-once = [command];

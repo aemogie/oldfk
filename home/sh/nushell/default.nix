@@ -27,19 +27,27 @@
       shell_integration = false;
       use_kitty_protocol = false;
     };
-    extraConfig =
+    extraConfig = let
+      inherit (config.paint.core) _ctp_flavor _dark;
+      nu_scripts = pkgs.fetchFromGitHub {
+        owner = "nushell";
+        repo = "nu_scripts";
+        rev = "4fe113714aab5a2437cc2ab1d83588a2c5c458a7";
+        sha256 = "sha256-D9WSTLWKU7lBMjIgTFECb+WokBYxGlzJ7tdZN8+2bpc=";
+      };
+      theme_name =
+        if _ctp_flavor == "mocha"
+        then "catppuccin-mocha"
+        else if _dark
+        then "nushelll-dark"
+        else "nushell-light";
+    in
       #nu color scheme
       ''
         $env.config = ($env.config | merge {
           color_config: (if true {
-            use ${pkgs.fetchFromGitHub {
-            owner = "nushell";
-            repo = "nu_scripts";
-            rev = "4fe113714aab5a2437cc2ab1d83588a2c5c458a7";
-            sha256 = "sha256-D9WSTLWKU7lBMjIgTFECb+WokBYxGlzJ7tdZN8+2bpc=";
-          }
-          + "/themes/themes/catppuccin-mocha.nu"}
-            catppuccin-mocha
+            use ${nu_scripts}/themes/themes/${theme_name}.nu
+            ${theme_name}
           })
         })
       '';

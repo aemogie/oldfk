@@ -27,7 +27,9 @@
       shell_integration = true;
       use_kitty_protocol = true;
     };
-    extraConfig =
+    extraConfig = let
+      inherit (config.paint.core) _ctp_flavor;
+    in
       #nu color scheme
       ''
         $env.config = ($env.config | merge {
@@ -38,8 +40,8 @@
             rev = "4fe113714aab5a2437cc2ab1d83588a2c5c458a7";
             sha256 = "sha256-D9WSTLWKU7lBMjIgTFECb+WokBYxGlzJ7tdZN8+2bpc=";
           }
-          + "/themes/themes/catppuccin-mocha.nu"}
-            catppuccin-mocha
+          + "/themes/themes/catppuccin-${_ctp_flavor}.nu"}
+            catppuccin-${_ctp_flavor}
           })
         })
       '';

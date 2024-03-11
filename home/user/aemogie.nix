@@ -64,7 +64,7 @@
 
   home.sessionVariables = {
     # doesnt work on bash idk why. but nushell works, though.
-    LS_COLORS = "$(${pkgs.vivid}/bin/vivid generate catppuccin-mocha)";
+    LS_COLORS = "$(${pkgs.vivid}/bin/vivid generate catppuccin-${config.paint.core._ctp_flavor})";
   };
 
   programs = {

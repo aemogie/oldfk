@@ -8,8 +8,8 @@
     enable = true;
     client = "webcord";
     style = let
-      ctp_mocha = pkgs.fetchFromGitHub {
-        # url = "https://catppuccin.github.io/discord/dist/catppuccin-mocha-mauve.theme.css";
+      inherit (config.paint.core) _ctp_flavor _ctp_accent base mantle crust surface0;
+      ctp = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "discord";
         # NOTE: on the gh-pages branch
@@ -19,8 +19,7 @@
     in
       #css
       ''
-        /* add option to switch based on a global dark mode preference */
-        ${builtins.readFile "${ctp_mocha}/dist/catppuccin-mocha-mauve.theme.css"}
+        ${builtins.readFile "${ctp}/dist/catppuccin-${_ctp_flavor}-${_ctp_accent}.theme.css"}
 
         :root {
           --font-sans: "${config.fonts.sans}", sans-serif;
@@ -46,11 +45,11 @@
         }
 
         /* most of it happens here */
-        .theme-dark {
-          --background-primary: #1e1e2e80 !important;
-          --background-secondary: #18182580 !important;
-          --background-secondary-alt: #14141f80 !important;
-          --channeltextarea-background: #11111b80 !important;
+        .theme-light, .theme-dark {
+          --background-primary: #${base}80 !important;
+          --background-secondary: #${mantle}80 !important;
+          --background-secondary-alt: #${mantle}80 !important;
+          --channeltextarea-background: #${crust}80 !important;
 
           /* this is behind all other elements. keep it transparent so that other colours work */
           --background-tertiary: transparent !important;
@@ -60,18 +59,18 @@
         [aria-label="Servers sidebar"] {
             background-color: var(--background-secondary-alt) !important;
         }
-        .theme-dark code.hljs {
+        .theme-light code.hljs, .theme-dark code.hljs {
            /* since it's just .25 the difference is little on dark bgs.
               but .5 adds up w bg .5 and no transperency then */
-           background: rgba(30, 30, 46, 0.5) !important;
+           background: #${base}80 !important;
         }
 
         /* fixes for forum channels */
         div[class|="chat"] > div[class|="content"] > div[class|="container"] {
-          background-color: rgba(30, 30, 46, 0.5) !important;
+          background-color: #${base}80 !important;
         }
         div[class|="chat"] > div[class|="content"] > div[class|="container"] div[class*="mainCard-"] {
-          background-color: rgba(49, 50, 68, 0.5) !important;
+          background-color: #${surface0}80 !important;
         }
 
         div[class^=chatContainer]>div[class^=container] {

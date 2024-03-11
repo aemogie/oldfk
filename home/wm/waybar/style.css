@@ -22,7 +22,7 @@ widget > * {
 }
 
 #workspaces {
-    background-color: rgba(@base@, @bgalpha@);
+    background-color: #@base@;
     border-radius: 100px;
     margin: 7px 3px 0px 7px;
 }
@@ -30,25 +30,25 @@ widget > * {
 #workspaces button {
     background-color: transparent;
     border-radius: 100px;
-    color: rgb(@text@);
+    color: #@text@;
 }
 
 #workspaces button.active {
-    color: rgba(@base@, @bgalpha@);
-    background-color: rgb(@primary@);
+    color: #@base@;
+    background-color: #@primary@;
     font-weight: bold;
     padding: 0 25px;
 }
 
 #workspaces button:not(.active):hover {
-    background-color: rgba(@surface0@, @bgalpha@);
+    background-color: #@surface0@;
     padding: 0 25px;
 }
 
 
 .modules-right {
-    color: rgb(@text@);
-    background-color: rgba(@base@, @bgalpha@);
+    color: #@text@;
+    background-color: #@base@;
     border-radius: 100px;
 }
 
@@ -62,8 +62,8 @@ widget > * {
 }
 
 window#waybar:not(.empty) #window {
-    background-color: rgba(@base@, @bgalpha@);
-    color: rgb(@text@);
+    background-color: #@base@;
+    color: #@text@;
     padding: 0 20px;
     border-radius: 100px;
 }
@@ -83,26 +83,26 @@ widget > * {
 }
 
 #clock {
-    color: rgb(@text@);
+    color: #@text@;
 }
 
 #battery {
-    color: rgb(@success@);
+    color: #@success@;
 }
 
 #battery.charging, #battery.plugged {
-    color: rgb(@base@);
-    background-color: rgb(@success@);
+    color: #@base@;
+    background-color: #@success@;
 }
 
 @keyframes battery_blink {
     from {
-        background-color: rgb(@error@);
-        color: rgb(@base@);
+        background-color: #@error@;
+        color: #@base@;
     }
     to {
-        background-color: rgba(@base@, @bgalpha@);
-        color: rgb(@error@);
+        background-color: #@base@;
+        color: #@error@;
     }
 }
 
@@ -119,37 +119,37 @@ label:focus {
 }
 
 #backlight {
-    color: rgb(@text@);
+    color: #@text@;
 }
 
 #network {
-    color: rgb(@rosewater@);
+    color: #@rosewater@;
 }
 
 #network.disconnected {
-    color: rgb(@error@);
+    color: #@error@;
 }
 
 #pulseaudio,
 #wireplumber {
-    color: rgb(@blue@);
+    color: #@blue@;
 }
 
 #pulseaudio.muted,
 #wireplumber.muted {
-    color: rgb(@warning@);
+    color: #@warning@;
 }
 
 #custom-media {
-    color: rgb(@pink@);
+    color: #@pink@;
 }
 
 #custom-media.custom-spotify {
-    color: rgb(@green@);
+    color: #@green@;
 }
 
 /*#tray {
-    color: rgb(@blue@);
+    color: #@blue@;
 }
 
 #tray > .passive {
@@ -158,6 +158,6 @@ label:focus {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: rgb(@red@);
+    background-color: #@red@;
 }
 */

@@ -16,21 +16,20 @@
 
   theme = {
     colors = let
-      inherit (config.paint.core) crust mantle base overlay0 text mauve;
-      accent = mauve;
+      inherit (config.paint.core) crust mantle base overlay0 text primary;
     in {
       frame = "#${crust}";
-      icons = "#${accent}";
+      icons = "#${primary}";
       popup = "#${base}";
       popup_highlight = "#${overlay0}";
       popup_text = "#${text}";
       sidebar = "#${base}";
-      sidebar_border = "#${accent}";
+      sidebar_border = "#${primary}";
       sidebar_text = "#${text}";
       tab_background_text = "#${text}";
       tab_icon_overlay_fill = "rgb(251,251,254)";
       tab_icon_overlay_stroke = "rgb(66,65,77)";
-      tab_loading = "#${accent}";
+      tab_loading = "#${primary}";
       tab_selected = "#${base}";
       tab_text = "#${text}";
       toolbar = "#${base}";
@@ -38,12 +37,12 @@
       toolbar_field = "#${mantle}";
       toolbar_field_border = "#${base}";
       toolbar_field_focus = "#${base}";
-      toolbar_field_highlight = "#${accent}";
+      toolbar_field_highlight = "#${primary}";
       toolbar_field_highlight_text = "#${base}";
-      toolbar_field_separator = "#${accent}";
+      toolbar_field_separator = "#${primary}";
       toolbar_field_text = "#${text}";
       toolbar_text = "#${text}";
-      toolbar_vertical_separator = "#${accent}";
+      toolbar_vertical_separator = "#${primary}";
       toolbar_top_separator = "transparent";
     };
     properties = {

@@ -1,7 +1,7 @@
 {
   inputs,
   pkgs,
-  lib,
+  config,
   ...
 }: {
   imports = [
@@ -9,7 +9,9 @@
     ./nil.nix
     # ./nushell.nix
   ];
-  programs.helix = {
+  programs.helix = let
+    inherit (config.paint.core) _ctp_flavor;
+  in {
     enable = true;
     package = inputs.helix.packages.${pkgs.system}.helix;
     defaultEditor = true;
@@ -47,16 +49,16 @@
           space.w = ":write";
         };
       };
-      theme = "catppuccin_mocha_transparent";
+      theme = "catppuccin_${_ctp_flavor}_transparent";
     };
-    themes = {
-      catppuccin_mocha_transparent =
-        # import ./catppuccin_mocha.nix;
-        {
-          inherits = "catppuccin_mocha";
-          "ui.background" = {};
-        };
-    };
+
+    themes."catppuccin_${_ctp_flavor}_transparent" =
+      # import ./catppuccin_mocha.nix;
+      {
+        inherits = "catppuccin_${_ctp_flavor}";
+        "ui.background" = {};
+      };
+
     languages = {
       language-server = {
         # rust-analyzer expects cargo to be in $PATH. idk how to cleanly handle it, maybe wrapper?

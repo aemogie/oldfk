@@ -51,13 +51,13 @@
       gestures.workspace_swipe = true;
 
       general = let
-        inherit (config.paint.core) mauve green crust;
+        inherit (config.paint.core) primary alternate crust;
       in {
         inherit gaps_out border_size;
         gaps_in = 10;
         # dont be fooled, these are all hex not dec
-        "col.active_border" = "rgb(${mauve}) rgb(${green}) 45deg";
-        "col.inactive_border" = "rgba(${crust}00)";
+        "col.active_border" = "rgb(${primary}) rgb(${alternate}) 45deg";
+        "col.inactive_border" = "rgba(${crust}FF)";
       };
 
       misc = {

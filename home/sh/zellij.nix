@@ -5,7 +5,7 @@
   ...
 }: let
   autostart = false;
-  inherit (config.paint.core) surface2 text red green mauve blue yellow peach sky mantle pink;
+  inherit (config.paint.core) surface2 text red green primary blue yellow peach sky mantle pink;
 in {
   imports = [../../modules/zellij.nix];
   home.shellAliases = {
@@ -61,7 +61,7 @@ in {
                 bg "#${surface2}"
                 fg "#${text}"
                 red "#${red}"
-                green "#${mauve}" // "#${green}"
+                green "#${primary}" // "#${green}"
                 blue "#${blue}"
                 yellow "#${yellow}"
                 magenta "#${pink}"

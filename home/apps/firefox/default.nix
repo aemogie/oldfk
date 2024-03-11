@@ -46,7 +46,7 @@
     profiles.default = {
       id = 1;
       settings = let
-        inherit (config.paint.core) base text green mauve;
+        inherit (config.paint.core) base text primary alternate;
       in {
         "browser.download.useDownloadDir" = true;
         "browser.display.foreground_color" = "#${text}";

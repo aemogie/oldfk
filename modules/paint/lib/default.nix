@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (builtins) length isList isAttrs hasAttr elemAt all replaceStrings attrNames attrValues;
+  inherit (builtins) length isList isAttrs isString hasAttr elemAt all replaceStrings attrNames attrValues stringLength elem;
   inherit (lib) mkOption mod;
   inherit (lib.strings) charToInt concatMapStrings stringToCharacters toLower;
   types = let
@@ -15,6 +15,8 @@
           c = a: hasAttr a v && ints.u8.check v.${a};
         in
           (c "r") && (c "g") && (c "b")
+        else if isString v
+        then stringLength v == 6 && all (c: elem c conversion.hexChars) (stringToCharacters v)
         else false;
     };
   };
@@ -31,6 +33,8 @@
           }
           else if isAttrs v
           then v
+          else if isString v
+          then conversion.hexToRgb v
           else throw "Value cannot be coerced into an RGB color."
         );
     in
@@ -46,7 +50,7 @@
         description = "An RGB color represented as a list of 3 integers between 0 and 255.";
       };
   };
-  conversion = let
+  conversion = rec {
     hexChars = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f"];
     decToHex = v: (elemAt hexChars (mod (v / 16) 16)) + (elemAt hexChars (mod v 16));
     hexToDec = let
@@ -63,7 +67,6 @@
         else if alnS <= c && c <= alnE
         then c - alnS + 10
         else abort "Invalid hexadecimal integer!";
-  in {
     rgbToHex = v: let
       rgb = [v.r v.g v.b];
     in

@@ -84,7 +84,7 @@ in {
   };
   config = mkIf (cfg.enable && cfg.client == "webcord") {
     programs.discord.launch_command = mkDefault "${cfg.webcord.package}/bin/webcord";
-    xdg.configFile."WebCord/Themes/CatppuccinMocha".text = cfg.style;
+    xdg.configFile."WebCord/Themes/custom".text = cfg.style;
     home.activation.webcordConfig = let
       inherit (config.xdg) configHome;
       configSetup =

@@ -1,14 +1,14 @@
 {config, ...}: let
-  inherit (config.paint.core) base text green mauve;
+  inherit (config.paint.core) base text primary alternate;
 in {
   services.mako = {
     enable = true;
     backgroundColor = "#${base}80";
     textColor = "#${text}FF";
-    progressColor = "source #${green}80";
+    progressColor = "source #${alternate}80";
     font = "${config.fonts.sans} 12";
     borderRadius = 5;
-    borderColor = "#${mauve}FF";
+    borderColor = "#${primary}FF";
     borderSize = 2;
     padding = "10";
     margin = "10";

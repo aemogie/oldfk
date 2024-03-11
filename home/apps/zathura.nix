@@ -1,8 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.zathura = {
     enable = true;
     options.selection-notification = false;
-    extraConfig = "include catppuccin-mocha";
+    extraConfig = "include catppuccin-${config.paint.core._ctp_flavor}";
   };
 
   xdg.configFile."zathura" = {

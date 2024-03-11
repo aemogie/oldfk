@@ -19,7 +19,7 @@
         # TODO: replace with new module
         inherit (config.paint.core) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal overlay0;
       in {
-        alpha = "0.2";
+        alpha = "0.7";
         background = "${base}";
         foreground = "${text}";
         bright0 = "${surface2}";
