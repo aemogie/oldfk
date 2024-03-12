@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   programs.foot = {
     enable = true;
     # breaks with login script, idk why
@@ -17,28 +21,39 @@
 
       colors = let
         # TODO: replace with new module
-        inherit (config.paint.core) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal overlay0;
-      in {
-        alpha = "0.7";
-        background = "${base}";
-        foreground = "${text}";
-        bright0 = "${surface2}";
-        bright1 = "${red}";
-        bright2 = "${green}";
-        bright3 = "${yellow}";
-        bright4 = "${blue}";
-        bright5 = "${pink}";
-        bright6 = "${teal}";
-        bright7 = "${subtext0}";
-        regular0 = "${surface1}";
-        regular1 = "${red}";
-        regular2 = "${green}";
-        regular3 = "${yellow}";
-        regular4 = "${blue}";
-        regular5 = "${pink}";
-        regular6 = "${teal}";
-        regular7 = "${subtext1}";
-      };
+        inherit (config.paint.core) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal overlay0 _dark;
+        col = {
+          alpha = "0.7";
+          background = "${base}";
+          foreground = "${text}";
+          bright0 = "${surface2}"; # gray
+          bright1 = "${red}"; #      red
+          bright2 = "${green}"; #    green
+          bright3 = "${yellow}"; #   yellow
+          bright4 = "${blue}"; #     blue
+          bright5 = "${pink}"; #     magenta
+          bright6 = "${teal}"; #     cyan
+          bright7 = "${subtext0}"; # white
+          regular0 = "${surface1}";
+          regular1 = "${red}";
+          regular2 = "${green}";
+          regular3 = "${yellow}";
+          regular4 = "${blue}";
+          regular5 = "${pink}";
+          regular6 = "${teal}";
+          regular7 = "${subtext1}";
+        };
+      in
+        if (!_dark)
+        then
+          col
+          // {
+            bright0 = col.bright7;
+            bright7 = col.bright0;
+            regular0 = col.regular7;
+            regular7 = col.regular0;
+          }
+        else col;
       /*
          this doesnt work.
       // listToAttrs (genList (i: {
