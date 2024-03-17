@@ -32,9 +32,7 @@ in {
         splash = false;
         ipc = false;
       };
-    onChange = let
-      env = "env HYPRLAND_INSTANCE_SIGNATURE=$HYPRLAND_INSTANCE_SIGNATURE";
-    in
+    onChange =
       #sh
       ''
         program='
