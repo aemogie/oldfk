@@ -18,7 +18,7 @@
         in
           pkgs.runCommand "catppuccin-grub-theme" {} ''
             mkdir -p "$out"
-            cp -r ${src}/src/catppuccin-${config.paint.core._ctp_flavor}-grub-theme/* "$out"/
+            cp -r ${src}/src/catppuccin-${config.paint.active.ctp.flavor}-grub-theme/* "$out"/
           '';
       in {
         enable = true;

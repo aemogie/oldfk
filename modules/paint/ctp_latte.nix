@@ -1,5 +1,6 @@
 {
-  config.paint.core = {
+  specialisation.dark.configuration = {};
+  specialisation.light.configuration.paint.core = {
     _ctp_flavor = "latte";
     _dark = false;
 

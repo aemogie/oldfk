@@ -1,11 +1,7 @@
-{config, ...}: {
+{osConfig, ...}: {
   manifest_version = 2;
 
-  browser_specific_settings = {
-    gecko = {
-      id = "custom@paint.nix";
-    };
-  };
+  browser_specific_settings.gecko.id = "custom@paint.nix";
 
   name = "paint.nix auto-generated theme";
   description = "Theme generated using home-manager paint.nix module.";
@@ -16,7 +12,7 @@
 
   theme = {
     colors = let
-      inherit (config.paint.core) crust mantle base overlay0 text primary;
+      inherit (osConfig.paint.core) crust mantle base overlay0 text primary;
     in {
       frame = "#${crust}";
       icons = "#${primary}";

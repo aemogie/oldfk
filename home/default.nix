@@ -70,5 +70,5 @@ in {
     ];
   };
 
-  # config.home-manager.useUserPackages = true;
+  config.home-manager.useUserPackages = true;
 }

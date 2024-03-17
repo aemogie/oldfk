@@ -1,12 +1,12 @@
 {
   pkgs,
-  config,
+  osConfig,
   ...
 }: {
   programs.zathura = {
     enable = true;
     options.selection-notification = false;
-    extraConfig = "include catppuccin-${config.paint.core._ctp_flavor}";
+    extraConfig = "include catppuccin-${osConfig.paint.active.ctp.flavor}";
   };
 
   xdg.configFile."zathura" = {

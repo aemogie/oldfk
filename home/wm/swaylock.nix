@@ -1,25 +1,32 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  osConfig,
+  ...
+}: let
+  inherit (osConfig.paint.active.pal) base rosewater green text lavender peach blue maroon;
+in {
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
     settings =
       {
-        color = "1e1e2e";
-        bs-hl-color = "f5e0dc";
-        caps-lock-bs-hl-color = "f5e0dc";
-        caps-lock-key-hl-color = "a6e3a1";
-        key-hl-color = "a6e3a1";
-        layout-text-color = "cdd6f4";
-        ring-color = "b4befe";
-        ring-clear-color = "f5e0dc";
-        ring-caps-lock-color = "fab387";
-        ring-ver-color = "89b4fa";
-        text-color = "cdd6f4";
-        text-clear-color = "f5e0dc";
-        text-caps-lock-color = "fab387";
-        text-ver-color = "89b4fa";
-        text-wrong-color = "eba0ac";
-        ring-wrong-color = "eba0ac";
+        color = "${base}";
+        bs-hl-color = "${rosewater}";
+        caps-lock-bs-hl-color = "${rosewater}";
+        caps-lock-key-hl-color = "${green}";
+        key-hl-color = "${green}";
+        layout-text-color = "${text}";
+        ring-color = "${lavender}";
+        ring-clear-color = "${rosewater}";
+        ring-caps-lock-color = "${peach}";
+        ring-ver-color = "${blue}";
+        text-color = "${text}";
+        text-clear-color = "${rosewater}";
+        text-caps-lock-color = "${peach}";
+        text-ver-color = "${blue}";
+        text-wrong-color = "${maroon}";
+        ring-wrong-color = "${maroon}";
         inside-color = "00000000";
         inside-clear-color = "00000000";
         inside-caps-lock-color = "00000000";
@@ -35,7 +42,7 @@
         separator-color = "00000000";
       }
       // {
-        font = "Iosevka Aile";
+        font = config.fonts.sans;
         # image = toString ../../assets/street.png;
         indicator = true;
         clock = true;

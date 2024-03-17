@@ -1,16 +1,18 @@
 {
   pkgs,
   config,
+  osConfig,
   lib,
   ...
 }: let
   inherit (lib) toUpper substring stringLength;
   caps = s: "${toUpper (substring 0 1 s)}${substring 1 (stringLength s) s}";
+  inherit (osConfig.paint) useDark;
+  inherit (osConfig.paint.active.ctp) flavor accent;
   dark_str =
-    if _dark
-    then "Dark"
-    else "Light";
-  inherit (config.paint.core) _ctp_flavor _ctp_accent _dark;
+    if useDark
+    then "dark"
+    else "light";
 in {
   home = {
     sessionVariables = {
@@ -19,21 +21,25 @@ in {
     };
 
     pointerCursor = {
-      package = pkgs.catppuccin-cursors."${_ctp_flavor}${dark_str}";
-      name = "Catppuccin-${caps _ctp_flavor}-${dark_str}-Cursors";
+      package = pkgs.catppuccin-cursors."${flavor}${caps dark_str}";
+      name = "Catppuccin-${caps flavor}-${caps dark_str}-Cursors";
       size = 24;
       gtk.enable = true;
       x11.enable = true;
     };
   };
 
+  dconf = {
+    enable = true;
+    settings."org/gnome/desktop/interface".color-scheme = "prefer-${dark_str}";
+  };
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-${caps _ctp_flavor}-Standard-${caps _ctp_accent}-${dark_str}";
+      name = "Catppuccin-${caps flavor}-Standard-${caps accent}-${caps dark_str}";
       package = pkgs.catppuccin-gtk.override {
-        accents = [_ctp_accent];
-        variant = _ctp_flavor;
+        accents = [accent];
+        variant = flavor;
       };
     };
 
@@ -41,13 +47,13 @@ in {
       name =
         "Papirus"
         + (
-          if _dark
+          if useDark
           then ""
           else "-Dark"
         );
       package = pkgs.catppuccin-papirus-folders.override {
-        accent = _ctp_accent;
-        flavor = _ctp_flavor;
+        accent = accent;
+        flavor = flavor;
       };
     };
 
@@ -71,17 +77,11 @@ in {
       gtk-xft-hinting = 1;
       gtk-xft-hintstyle = "hintslight";
       gtk-xft-rgba = "rgb";
-      gtk-application-prefer-dark-theme =
-        if _dark
-        then 1
-        else 0;
+      gtk-application-prefer-dark-theme = useDark;
     };
 
     gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme =
-        if _dark
-        then 1
-        else 0;
+      gtk-application-prefer-dark-theme = useDark;
     };
   };
 }

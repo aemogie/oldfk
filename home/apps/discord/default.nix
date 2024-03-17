@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  osConfig,
   ...
 }: {
   imports = [../../../modules/discord];
@@ -8,22 +9,23 @@
     enable = true;
     client = "webcord";
     style = let
-      inherit (config.paint.core) _ctp_flavor _ctp_accent base mantle crust surface0;
+      inherit (osConfig.paint.active.ctp) flavor accent;
+      inherit (osConfig.paint.active.pal) base mantle crust;
       ctp = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "discord";
         # NOTE: on the gh-pages branch
-        rev = "caaea219ddf5bb5428e87fe65be9034db6f05998";
-        sha256 = "sha256-/QUa7YN/AdYUxrqgaD2rC4nbo1cR/1oHYFVcFpNTGzI=";
+        rev = "9b7e9008c727cd056c20c82eae11471d22efe1e3";
+        sha256 = "sha256-nZyNY4wOpMs2hPfn6ieUSfOqdPUf45VQm8+9mdUIGRg=";
       };
     in
       #css
       ''
-        ${builtins.readFile "${ctp}/dist/catppuccin-${_ctp_flavor}-${_ctp_accent}.theme.css"}
+        ${builtins.readFile "${ctp}/dist/catppuccin-${flavor}-${accent}.theme.css"}
 
         :root {
-          --font-sans: "${config.fonts.sans}", sans-serif;
-          --font-mono: "${config.fonts.monospace}", monospace;
+          --font-sans: ${config.fonts.sans}, sans-serif;
+          --font-mono: ${config.fonts.monospace}, monospace;
 
           --font-primary: var(--font-sans);
           --font-headline: var(--font-sans);
@@ -45,40 +47,25 @@
         }
 
         /* most of it happens here */
-        .theme-light, .theme-dark {
-          --background-primary: #${base}80 !important;
-          --background-secondary: #${mantle}80 !important;
-          --background-secondary-alt: #${mantle}80 !important;
-          --channeltextarea-background: #${crust}80 !important;
-
-          /* this is behind all other elements. keep it transparent so that other colours work */
+        html.theme-light, html.theme-dark {
+          /* 0xB2 = 0.7 * 0xFF */
+          background: #${base}B2 !important;
+          --background-primary: #${base}00 !important;
+          --background-secondary: #${mantle}00 !important;
+          --background-secondary-alt: #${mantle}00 !important;
           --background-tertiary: transparent !important;
+          --channeltextarea-background: #${crust}00 !important;
+          /* forum page uses this? */
+          --home-background: transparent !important;
         }
 
-        /* uses bg-tertiary which is transparent now, so switch it out */
-        [aria-label="Servers sidebar"] {
-            background-color: var(--background-secondary-alt) !important;
-        }
-        .theme-light code.hljs, .theme-dark code.hljs {
-           /* since it's just .25 the difference is little on dark bgs.
-              but .5 adds up w bg .5 and no transperency then */
-           background: #${base}80 !important;
+        html.theme-light code.hljs, html.theme-dark code.hljs {
+           background: #${base} !important;
         }
 
-        /* fixes for forum channels */
-        div[class|="chat"] > div[class|="content"] > div[class|="container"] {
-          background-color: #${base}80 !important;
-        }
-        div[class|="chat"] > div[class|="content"] > div[class|="container"] div[class*="mainCard-"] {
-          background-color: #${surface0}80 !important;
-        }
-
-        div[class^=chatContainer]>div[class^=container] {
-          background-color: unset;
-        }
-
-        div.container__4bde3 {
-          backdrop-filter: blur(10px);
+        div[class^="chat"] section[class*="forumOrHome_"],
+        div[class^="chat"] > div[class^="content"] > div[class^="container"] div[class*="mainCard_"] {
+          background: transparent !important;
         }
       '';
 

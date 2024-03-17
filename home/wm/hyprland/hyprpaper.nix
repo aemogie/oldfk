@@ -1,11 +1,11 @@
 {
   pkgs,
   lib,
-  config,
+  osConfig,
   ...
 }: let
   wallpaper =
-    if config.paint.core._dark
+    if osConfig.paint.useDark
     then ../../../assets/catppuccino-dark.png
     else ../../../assets/catppuccino-pink.png;
   command = lib.getExe pkgs.hyprpaper;
@@ -32,7 +32,9 @@ in {
         splash = false;
         ipc = false;
       };
-    onChange =
+    onChange = let
+      env = "env HYPRLAND_INSTANCE_SIGNATURE=$HYPRLAND_INSTANCE_SIGNATURE";
+    in
       #sh
       ''
         program='
@@ -40,10 +42,9 @@ in {
           $1 == "HYPRLAND_INSTANCE_SIGNATURE" { print $2 }
         '
         for pid in $(${pkgs.procps}/bin/pgrep -f hyprpaper); do
-          HYPRLAND_INSTANCE_SIGNATURE=$(${pkgs.gawk}/bin/gawk "$program" /proc/$pid/environ)
-          kill $pid || true
-          export HYPRLAND_INSTANCE_SIGNATURE
-          ${pkgs.hyprland}/bin/hyprctl dispatch exec -- ${command} > /dev/null
+          instance=$(${pkgs.gawk}/bin/gawk "$program" /proc/$pid/environ)
+          kill $pid && \
+          ${pkgs.hyprland}/bin/hyprctl -i $instance dispatch exec -- ${command} > /dev/null
         done
       '';
   };

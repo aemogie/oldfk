@@ -1,6 +1,6 @@
 {
   pkgs,
-  config,
+  osConfig,
   inputs,
   ...
 }: let
@@ -31,7 +31,7 @@
             sha256 = "sha256-BU/M1hRIyju2mQGZKCvpR4JpRBGjJzCcnnty4ypJjDs=";
           }
           + "/catppuccin";
-        colorScheme = config.paint.core._ctp_flavor;
+        colorScheme = osConfig.paint.active.flavor;
       };
       extensions = [
         (pkgs.fetchFromGitHub {
@@ -72,7 +72,7 @@ in {
           sha256 = "sha256-VxkgW9qF1pmKnP7Ei7gobF0jVB1+qncfFeykWoXMRCo=";
         };
       };
-    colorScheme = config.paint.core._ctp_flavor;
+    colorScheme = osConfig.paint.active.ctp.flavor;
     enabledExtensions = with spicePkgs.extensions; [
       {
         src = pkgs.fetchFromGitHub {

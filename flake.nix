@@ -11,10 +11,7 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = let
-      system = {
-        system ? builtins.currentSystem,
-        isVm ? false,
-      }: let
+      system = {isVm ? false}: let
         specialArgs = {inherit inputs isVm;};
       in
         lib.nixosSystem {

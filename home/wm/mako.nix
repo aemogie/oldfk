@@ -1,5 +1,9 @@
-{config, ...}: let
-  inherit (config.paint.core) base text primary alternate;
+{
+  osConfig,
+  config,
+  ...
+}: let
+  inherit (osConfig.paint.active.pal) base text primary alternate;
 in {
   services.mako = {
     enable = true;

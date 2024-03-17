@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   pkgs,
   lib,
   ...
@@ -28,7 +29,8 @@
       use_kitty_protocol = false;
     };
     extraConfig = let
-      inherit (config.paint.core) _ctp_flavor _dark;
+      inherit (osConfig.paint) useDark;
+      inherit (osConfig.paint.active.ctp) flavor;
       nu_scripts = pkgs.fetchFromGitHub {
         owner = "nushell";
         repo = "nu_scripts";
@@ -36,9 +38,9 @@
         sha256 = "sha256-D9WSTLWKU7lBMjIgTFECb+WokBYxGlzJ7tdZN8+2bpc=";
       };
       theme_name =
-        if _ctp_flavor == "mocha"
+        if flavor == "mocha"
         then "catppuccin-mocha"
-        else if _dark
+        else if useDark
         then "nushelll-dark"
         else "nushell-light";
     in
@@ -54,7 +56,20 @@
     shellAliases = builtins.removeAttrs config.home.shellAliases ["o" "q" "r" "e"]; # are nu functions instead
 
     # manage the file
-    envFile.text = "";
+    envFile.text =
+      #nu
+      ''
+        $env.ENV_CONVERSIONS = {
+            "PATH": {
+                from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+                to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+            }
+            "Path": {
+                from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+                to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+            }
+        }
+      '';
     loadSessionVariables = true;
     plugins =
       [

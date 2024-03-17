@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   config,
+  osConfig,
   ...
 }: {
   imports = [
@@ -10,7 +11,7 @@
     # ./nushell.nix
   ];
   programs.helix = let
-    inherit (config.paint.core) _ctp_flavor;
+    inherit (osConfig.paint.active.ctp) flavor;
   in {
     enable = true;
     package = inputs.helix.packages.${pkgs.system}.helix;
@@ -32,7 +33,7 @@
           display-inlay-hints = true;
           display-messages = true;
         };
-        shell = ["nu" "-l" "-c"];
+        shell = ["${config.home.loginShell}${config.home.loginShell.shellPath}" "-l" "-c"];
       };
       keys = {
         insert = {
@@ -49,13 +50,13 @@
           space.w = ":write";
         };
       };
-      theme = "catppuccin_${_ctp_flavor}_transparent";
+      theme = "catppuccin_${flavor}_transparent";
     };
 
-    themes."catppuccin_${_ctp_flavor}_transparent" =
+    themes."catppuccin_${flavor}_transparent" =
       # import ./catppuccin_mocha.nix;
       {
-        inherits = "catppuccin_${_ctp_flavor}";
+        inherits = "catppuccin_${flavor}";
         "ui.background" = {};
       };
 
@@ -63,7 +64,7 @@
       language-server = {
         # rust-analyzer expects cargo to be in $PATH. idk how to cleanly handle it, maybe wrapper?
         # rust-analyzer.command = lib.getExe pkgs.rust-analyzer;
-        lua-language-server.command = "${pkgs.lua-language-server}/bin/lua-language-server";
+        # lua-language-server.command = "${pkgs.lua-language-server}/bin/lua-language-server";
       };
     };
   };

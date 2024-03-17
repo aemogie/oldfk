@@ -1,6 +1,6 @@
 {config, ...}: {
   console.colors = let
-    inherit (config.paint.core) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal overlay0;
+    inherit (config.paint.active.pal) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal overlay0;
     _ = [
       "1e1e2e" # base      # bg_default, black
       "585b70" # surface2  # red

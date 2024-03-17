@@ -3,6 +3,7 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }: {
   imports =
@@ -10,7 +11,6 @@
       inputs.ctp.homeManagerModules.catppuccin
       ../../modules/fonts.nix
       ../../modules/typst.nix
-      ../../modules/paint/home-manager
     ]
     ++ [
       ../wm/hyprland
@@ -49,6 +49,7 @@
     pkgs.jetbrains.idea-community
     pkgs.fractal
     pkgs.gnome.nautilus
+    pkgs.spotube
     pkgs.fd
   ];
 
@@ -64,7 +65,7 @@
 
   home.sessionVariables = {
     # doesnt work on bash idk why. but nushell works, though.
-    LS_COLORS = "$(${pkgs.vivid}/bin/vivid generate catppuccin-${config.paint.core._ctp_flavor})";
+    LS_COLORS = "$(${pkgs.vivid}/bin/vivid generate catppuccin-${osConfig.paint.active.ctp.flavor})";
   };
 
   programs = {

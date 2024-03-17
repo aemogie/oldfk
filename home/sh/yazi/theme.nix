@@ -1,6 +1,45 @@
-{config, ...}: let
-  bat = config.programs.bat.themes.paintnix-custom.src;
-in {
+{...}: {
+  manager = {
+    # syntect_theme = bat;
+    border_style = {fg = "#7f849c";};
+    border_symbol = "│";
+    cwd = {fg = "#94e2d5";};
+    find_keyword = {
+      fg = "#f9e2af";
+      italic = true;
+    };
+    find_position = {
+      bg = "reset";
+      fg = "#f5c2e7";
+      italic = true;
+    };
+    hovered = {
+      bg = "#89b4fa";
+      fg = "#1e1e2e";
+    };
+    marker_copied = {
+      bg = "#f9e2af";
+      fg = "#f9e2af";
+    };
+    marker_cut = {
+      bg = "#f38ba8";
+      fg = "#f38ba8";
+    };
+    marker_selected = {
+      bg = "#a6e3a1";
+      fg = "#a6e3a1";
+    };
+    preview_hovered = {underline = true;};
+    tab_active = {
+      bg = "#89b4fa";
+      fg = "#1e1e2e";
+    };
+    tab_inactive = {
+      bg = "#45475a";
+      fg = "#cdd6f4";
+    };
+    tab_width = 1;
+  };
   filetype = {
     rules = [
       {
@@ -71,47 +110,6 @@ in {
     selected = {reversed = true;};
     title = {};
     value = {};
-  };
-  manager = {
-    border_style = {fg = "#7f849c";};
-    border_symbol = "│";
-    cwd = {fg = "#94e2d5";};
-    find_keyword = {
-      fg = "#f9e2af";
-      italic = true;
-    };
-    find_position = {
-      bg = "reset";
-      fg = "#f5c2e7";
-      italic = true;
-    };
-    hovered = {
-      bg = "#89b4fa";
-      fg = "#1e1e2e";
-    };
-    marker_copied = {
-      bg = "#f9e2af";
-      fg = "#f9e2af";
-    };
-    marker_cut = {
-      bg = "#f38ba8";
-      fg = "#f38ba8";
-    };
-    marker_selected = {
-      bg = "#a6e3a1";
-      fg = "#a6e3a1";
-    };
-    preview_hovered = {underline = true;};
-    syntect_theme = bat;
-    tab_active = {
-      bg = "#89b4fa";
-      fg = "#1e1e2e";
-    };
-    tab_inactive = {
-      bg = "#45475a";
-      fg = "#cdd6f4";
-    };
-    tab_width = 1;
   };
   select = {
     active = {fg = "#f5c2e7";};

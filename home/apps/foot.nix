@@ -1,6 +1,6 @@
 {
-  lib,
   config,
+  osConfig,
   ...
 }: {
   programs.foot = {
@@ -21,7 +21,7 @@
 
       colors = let
         # TODO: replace with new module
-        inherit (config.paint.core) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal overlay0 _dark;
+        inherit (osConfig.paint.active.pal) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal;
         col = {
           alpha = "0.7";
           background = "${base}";
@@ -44,7 +44,7 @@
           regular7 = "${subtext1}";
         };
       in
-        if (!_dark)
+        if (!osConfig.paint.useDark)
         then
           col
           // {

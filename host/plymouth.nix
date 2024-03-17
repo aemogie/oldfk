@@ -5,7 +5,7 @@
 }: {
   boot.plymouth = {
     enable = true;
-    theme = "catppuccin-${config.paint.core._ctp_flavor}";
+    theme = "catppuccin-${config.paint.active.ctp.flavor}";
     themePackages = [
       (pkgs.stdenv.mkDerivation {
         name = "catppuccin-plymouth";

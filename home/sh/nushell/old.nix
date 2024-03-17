@@ -1,5 +1,5 @@
 {
-  config,
+  osConfig,
   pkgs,
   ...
 }: {
@@ -28,7 +28,7 @@
       use_kitty_protocol = true;
     };
     extraConfig = let
-      inherit (config.paint.core) _ctp_flavor;
+      inherit (osConfig.paint.core) _ctp_flavor;
     in
       #nu color scheme
       ''

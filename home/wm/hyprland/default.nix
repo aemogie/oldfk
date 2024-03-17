@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   config,
+  osConfig,
   ...
 }: {
   imports = [
@@ -46,12 +47,15 @@
 
       input = {
         numlock_by_default = true;
-        touchpad.natural_scroll = true;
+        touchpad = {
+          natural_scroll = true;
+          disable_while_typing = true;
+        };
       };
       gestures.workspace_swipe = true;
 
       general = let
-        inherit (config.paint.core) primary alternate crust;
+        inherit (osConfig.paint.active.pal) primary alternate crust;
       in {
         inherit gaps_out border_size;
         gaps_in = 10;
@@ -79,8 +83,8 @@
           size = 10;
           passes = 3;
           ignore_opacity = true;
-          popups = true;
-          popups_ignorealpha = 0;
+          # popups = true;
+          # popups_ignorealpha = 0;
           xray = true;
           special = true;
         };

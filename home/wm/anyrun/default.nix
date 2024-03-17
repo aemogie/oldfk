@@ -2,9 +2,17 @@
   pkgs,
   inputs,
   osConfig,
+  config,
   ...
 }: let
   bgalpha = 0.6; # make into module option
+  inherit (osConfig.paint.active.pal) base crust text primary;
+  cssRgba = {
+    r,
+    g,
+    b,
+    ...
+  }: alpha: "rgba(${toString r},${toString g},${toString b},${toString alpha})";
 in {
   imports = [inputs.anyrun.homeManagerModules.default];
 
@@ -37,7 +45,7 @@ in {
 
         * {
           transition: 200ms ease;
-          font-family: "Iosveka Aile"; /* use some system font config */
+          font-family: ${config.fonts.sans}; /* use some system font config */
         }
 
         #match,
@@ -51,7 +59,7 @@ in {
           padding: 12px 14px;
           border-radius: 12px;
 
-          color: white;
+          color: #${text};
           margin-top: 4px;
           border: 2px solid transparent;
           transition: all 0.3s ease;
@@ -60,7 +68,7 @@ in {
         #match.activatable:not(:first-child) {
           border-top-left-radius: 0;
           border-top-right-radius: 0;
-          border-top: 2px solid rgba(255, 255, 255, 0.1);
+          border-top: 2px solid ${cssRgba text 0.1};
         }
 
         #match.activatable #match-title {
@@ -68,7 +76,7 @@ in {
         }
 
         #match.activatable:hover {
-          border: 2px solid rgba(255, 255, 255, 0.4);
+          border: 2px solid ${cssRgba text 0.4};
         }
 
         #match-title, #match-desc {
@@ -85,9 +93,8 @@ in {
         }
 
         #match.activatable:selected, #match.activatable:hover:selected {
-          background: rgba(255,255,255,0.1);
-          border: 2px solid rgba(203, 166, 247, 0.7);
-          border-top: 2px solid rgba(203, 166, 247, 0.7);
+          background: ${cssRgba text 0.1};
+          border: 2px solid ${cssRgba primary bgalpha};
         }
 
         #match, #plugin {
@@ -95,17 +102,17 @@ in {
         }
 
         #entry {
-          color: white;
+          color: #${text};
           box-shadow: none;
           border-radius: 12px;
-          border: 2px solid rgba(203, 166, 247, 0.7);
+          border: 2px solid ${cssRgba primary bgalpha};
         }
 
         box#main {
-          background: rgba(36, 39, 58, ${toString bgalpha});
+          background: ${cssRgba base bgalpha};
           border-radius: 16px;
           padding: 8px;
-          box-shadow: 0px 2px 33px -5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 2px 33px -5px ${cssRgba crust 0.5};
         }
 
         row:first-child {

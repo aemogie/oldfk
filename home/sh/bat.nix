@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  paint.bat.enable = true;
   programs.bat = {
     enable = true;
     extraPackages = builtins.attrValues {
