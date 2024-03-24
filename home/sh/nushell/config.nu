@@ -52,7 +52,6 @@ def --wrapped r [
 
 def e [cwd: path = .] {
   cd ($cwd | path expand)
-  direnv reload
   if ZELLIJ in $env {
     @z_editor_tab@
   } else {

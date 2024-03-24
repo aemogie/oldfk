@@ -34,6 +34,11 @@
           display-messages = true;
         };
         shell = ["${config.home.loginShell}${config.home.loginShell.shellPath}" "-l" "-c"];
+        soft-wrap = {
+          enable = false;
+          wrap-at-text-width = true;
+        };
+        smart-tab.supersede-menu = true;
       };
       keys = {
         insert = {

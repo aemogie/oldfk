@@ -51,6 +51,7 @@
     pkgs.gnome.nautilus
     pkgs.spotube
     pkgs.fd
+    pkgs.vscode-fhs
   ];
 
   # this as well. maybe to ../tui?

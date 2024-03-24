@@ -102,7 +102,7 @@ in {
               children
             }
             tab name="editor" {
-              pane name="editor" borderless=true command="$EDITOR" { args "."; }
+              pane name="editor" borderless=true command="$SHELL" { args "-l" "-c" "^$env.EDITOR ."; }
               pane name="terminal" size="50%"
             }
           }
