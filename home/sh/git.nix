@@ -10,6 +10,7 @@
         gpg.format = "ssh";
         user.signingkey = "~/.ssh/id_ed25519.pub";
       };
+      difftastic.enable = true;
     };
     gh = {
       enable = true;
