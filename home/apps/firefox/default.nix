@@ -70,14 +70,19 @@
     profiles.default = {
       id = 0;
       settings = let
-        inherit (osConfig.paint.active.pal) base text primary alternate;
+        inherit (osConfig.paint.active.pal) base text;
       in
         {
           "browser.download.useDownloadDir" = true;
           "devtools.chrome.enabled" = true; # allow running the userChrome debugger
-          "full-screen-api.ignore-widgets" = true; # inner fullscreen doesnt do a window fullscreen
           "browser.tabs.inTitlebar" = 0; # removes the close button, assumed to go from CSD to regular, but i dont hv titlebars
           "ui.key.menuAccessKeyFocuses" = false; # disable the alt menu
+        }
+        // {
+          # fullscreen
+          "full-screen-api.ignore-widgets" = true;
+          "full-screen-api.warning.timeout" = 0;
+          "full-screen-api.transition.timeout" = 0;
         }
         // {
           # default theme colours
@@ -87,7 +92,7 @@
           "browser.display.background_color.dark" = "#${base}";
         }
         // {
-          # overscroll. thanks, AbrarSL
+          # overscroll. thanks, @AbrarSL
           "apz.gtk.pangesture.delta_mode" = 2;
           "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 25;
           "apz.fling_friction" = 0.004;
